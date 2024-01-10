@@ -1,19 +1,68 @@
+"""
+ProjectName:Shopping Cart project Using List and Dictionaries and Exception Handling.
+Developer:Sneha
+Date:2023-12-28
+Description:: In this project we are Capturing the Activities of the Products like Add To Cart,View Cart,Edit Cart etc.
+          1.Creating User 
+          2.Login into the app
+          3.Create Products
+          4.Add To Cart
+          5.View Cart
+          6.Edit Cart 
+          7.No of visitors to the product
+          8.Clear Cart
+          9.Apply Discount
+          10.Generate the Bill
+          11.Purchased date of the product
+          12.Return The Product
+          13.Exchange The Product
+          14.Delivery
+          15.Exit The Shopping Cart
+"""
+
 global products
 products=[]
 def shopping_cart_display_menu():
     print("="*50)
     print("\tShopping-Cart ")
     print("="*50)
-    print("1.Create Products")
-    print("2.Add to cart")
-    print("3.View cart")
-    print("4.Edit cart")
-    print("5.Remove cart")
-    print("6.Clear cart")
-    print("7.Apply Discount")
-    print("8.Get the Bill ")
-    print("9.Exit from the Application")
+    print("1.Create user")
+    print("2.login  into the app ")
+    print("3.Create Products")
+    print("4.Add to cart")
+    print("5.View cart")
+    print("6.Edit cart")
+    print("7.No of visitors to the product")
+    print("8.Remove cart")
+    print("9.Clear cart")
+    print("10.Apply Discount")
+    print("11.Get the Bill ")
+    print("12.Return The Product ")
+    print("13.Exchange The Product")
+    print("14.Delivery")
+    print("15.Exit from the Application")
     print("="*50)
+def create_user():
+    login_app(users)
+    full_name=input("Enter your full name:")
+    email_id=input("Enter your email id:")
+    contact_no=int(input("Enter your contact"))
+    address=input("Enter your address:")
+    print("Your all details submitted!")
+def login_app(users):
+    username=input("Please enter a username:")
+    password=input("Please enter a password:")
+
+    for u in users:
+        if username == u[0]:
+            if password == u[1]:
+                return username
+            
+    print("Username or password is incorrect. Please try again!")
+
+users =[["sneha",'abc123'],["gaurav",'xyz123'],["samu",'pqr123'],["ram","abc123"]]
+username = login_app(users)
+print(username,"has logged in")
 def create_product():
     print("Store the Products like below:")
     products={
@@ -265,6 +314,13 @@ def remove_to_products():
     # pop will remove the items in the list.
     products.pop(index-1)
     print()
+# Global variable to store the visit count
+visit_count = 0
+
+def increment_visit_to_the_Product():
+    global visit_count
+    visit_count += 1
+
 
 def clear_to_products():
     print("Do you want remove the all products")
@@ -318,28 +374,69 @@ def get_the_products_bill():
         print("Total Product Price :",sum)
         print("="*30)
 
+def return_item(self, product, quantity=1):
+        self.items = {}
+        product =input("Enter product name:")
+        quantity=int(input("Enter quantity of product:"))
+        # Check if the product is in the cart before returning
+        if product in self.items:
+            # Subtract the returned quantity, ensuring it doesn't go below zero
+            self.items[product] = max(0, self.items[product] - quantity)
+
+def exchange_product(self, old_product, new_product, quantity=1):
+        self.items = {}
+        old_product=input("Enter the old product name:")
+        new_product=input("Enter the new_product name:")
+        quantity=int(input("Enter quantity of product:"))
+        # Check if the old product is in the cart before exchanging
+        if old_product in self.items:
+            # Remove the old product
+            self.remove_item(old_product, quantity)
+            # Add the new product
+            self.add_item(new_product, quantity)
+def deliver(self):
+        self.items = {}
+        print("Delivering products:")
+        for product, quantity in self.items.items():
+            print(f"{quantity}x {product}")
+        print("Products delivered successfully!")
+    
 def main():
     loopstatus=True
     while loopstatus:
         shopping_cart_display_menu()
         choice=int(input("Enter your choice:"))
         if choice==1:
-            pass
+            login_app()
+            # create_user()
         elif choice==2:
-            add_to_cart()
-        elif choice==3:
-            view_to_products()
+            # login_app()
+            create_user()
+        if choice==3:
+            create_product()
         elif choice==4:
-            edit_to_products()
-        elif choice== 5:
-            remove_to_products()
+            add_to_cart()
+        elif choice==5:
+            view_to_products()
         elif choice==6:
-            clear_to_products()
+            edit_to_products()
         elif choice==7:
-            discount_apply_on_products()
-        elif choice==8:
-            get_the_products_bill()
+            increment_visit_to_the_Product()
+        elif choice== 8:
+            remove_to_products()
         elif choice==9:
+            clear_to_products()
+        elif choice==10:
+            discount_apply_on_products()
+        elif choice==11:
+            get_the_products_bill()
+        elif choice==12:
+            return_item()
+        elif choice==13:
+            exchange_product()
+        elif choice==14:
+            deliver()
+        elif choice==15:
             loopstatus=False
             print("Exiting from the Shopping cart Application..GoodBye!")
             break
